@@ -1,3 +1,5 @@
+# Incomplete solution
+
 # Program to read the entire file using read() function
 input = open("data/input.txt", "r")
 data = input.read().split('\n')
