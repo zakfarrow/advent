@@ -1,5 +1,5 @@
 # Program to read the entire file using read() function
-input = open("input.txt", "r")
+input = open("data/input.txt", "r")
 data = input.read().split('\n')
 
 nums = {
@@ -40,7 +40,7 @@ for j in data:
         if currHigh > y:
             y = currHigh
             numHigh = i
-            
+
     count += int(nums[numLow] + nums[numHigh])
 print(count)
 
