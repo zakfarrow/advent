@@ -1,6 +1,6 @@
 const fs = require('fs')
  
-fs.readFile('input.txt', (err, data) => {
+fs.readFile('data/input3.txt', (err, data) => {
     if (err) throw err;
     let raw = data.toString();
     formatRaw(raw);
@@ -19,34 +19,22 @@ function formatRaw(input) {
 
 function findParts(data) {
     let partsCoords = []; 
-    for (let i = 0; i <= data.length; i++) {
-        if (typeof(data[i]) !== 'undefined' && data[i].includes('£')) {
-            var index = data[i].indexOf('£');
-            if (data[i][index + 1] != '.') {
-                partsCoords.push([i, index + 1]);
-            }
-            if (data[i][index - 1] != '.') {
-                partsCoords.push([i, index - 1]);
-            }
-            if (data[i - 1][index - 1] != '.') {
-                partsCoords.push([i - 1, index - 1]);
-            }
-            if (data[i - 1][index] != '.') {
-                partsCoords.push([i - 1, index]);
-            }
-            if (data[i - 1][index + 1] != '.') {
-                partsCoords.push([i - 1, index + 1]);
-            }
-            if (data[i + 1][index - 1] != '.') {
-                partsCoords.push([i + 1, index - 1]);
-            }
-            if (data[i + 1][index] != '.') {
-                partsCoords.push([i + 1, index]);
-            }
-            if ([i + 1][index + 1] != '.') {
-                partsCoords.push([i + 1, index + 1]);
+    for (let y = 0; y <= data.length; y++) {
+        if (typeof(data[y]) !== 'undefined' && data[y].includes('£')) {
+            var x = data[y].indexOf('£');
+            var curr = data[y - 1][x - 1];
+            var partNum = '';
+            if (curr != '.') {
+                var left = data[y - 1][x - 2];
+                var right = data[y - 1][x];
+                if (left != '.' || left != '£') {
+                    partNum = partNum + left + curr;
+                    if (data[y - 1][x - 3] != '.' || data[y - 1][x - 3] != '£') {
+                        partNum = data[y - 1][x - 3] + partNum;
+                    }
+                }
             }
         }
     }
-    console.log(data[0]);
+    console.log(partsCoords[0]);
 }
